@@ -1,31 +1,37 @@
 from typing import Union
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, Form
 from fastapi.templating import Jinja2Templates
-
+import json
 
 app = FastAPI()
-templats = Jinja2Templates(directory="app/templates")
+templats = Jinja2Templates(directory="templates")
 
 
 """ uvicorn main:app --reload """
 
 @app.get('/')
-def index(request: Request):
-    return templats.TemplateResponse("index.html", {"request":request})
-    
+def task_list(request: Request):
+    context = {}
+    with open('database.json', 'r', encoding='utf-8') as db:
+        db:dict = json.load(db)
+        context = db
+        print(context)
+    return templats.TemplateResponse(request=request, name='index.html', context=context)
 
 
-@app.get('/home/')
-def temp(request: Request):
+@app.get('/users/')
+def get_user(request:Request):
+    with open('database.json', 'r', encoding='utf-8') as db:
+        db:dict = json.load(db)
+        context = db
+    return templats.TemplateResponse(request=request, name='users.html', context=context)
 
-    return {'IP':request.client[0],
-            'Port':request.client[1],
-            }
-
-@app.get('/regestrator/')
-def reg(request: Request):
-    return templats.TemplateResponse("reg.html", {"request":request})
-
-
+@app.get('/create/')
+def create_task(request:Request):
+    return templats.TemplateResponse(request=request, name='create.html')    
 
 
+@app.post('/create/')
+def create_task(request:Request, task:str = Form(...)):
+    print(task)
+    return templats.TemplateResponse(request=request, name='create.html')   

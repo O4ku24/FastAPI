@@ -4,77 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hard_Table</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
+    
 </head>
 <body>
-    <Table>
-        <button class="qwerty" onclick="changeBackGround()">сменить цвет</button>
-        <caption>Hard Table</caption>
-        <colgroup>
-            <col class="col1">
-            <col class="col2">
-            <col class="col3">
-            <col class="col4">
-            <col class="col5">
-            <col class="col6">
-        </colgroup>
-        <thead>
-            <tr>
-                <th>Спецификация</th>
-                <th>бесплатная</th>
-                <th>бюджетная</th>
-                <th>стандарт</th>
-                <th>премиум</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td class="qw">кузов</td>
-                <td>-</td>
-                <td>+</td>
-                <td>+</td>
-                <td>+</td>
-            </tr>
-            <tr>
-                <td class="qw">колеса</td>
-                <td>-</td>
-                <td>-</td>
-                <td>+</td>
-                <td>+</td>
-            </tr>
-            <tr>
-                <td class="qw">руль</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>+</td>
-            </tr>
-            <tr>
-                <td class="qw">ABS</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>+</td>
-            </tr>
-            <tr>
-                <td class="qw">запаска</td>
-                <td>-</td>
-                <td>+</td>
-                <td>+</td>
-                <td>+</td>
-            </tr>
-        </tbody>
-        <tfoot>
-            <tr>
-                <th id="cena">цена</th>
-                <th>0.00 руб</th>
-                <th>20'000.00 руб</th>
-                <th>30'000.00 руб</th>
-                <th>50'000.00 руб</th>
-            </tr>
-        </tfoot>
-    </Table>
+
+    <a href="/users/">Users</a>
+    <a href="/create/">Create</a>
+
+
+
+    <h1>Список задач</h1>
+    <h4>Кол-во задач:{{count_action.task_action}}</h4>
+    <h4>Задача: {% for task in tasks %}
+        {{task.title}}
+    {%endfor%}</h4>
+    <h4>Задача: {% for task in tasks %}
+        {{task.description}}
+    {%endfor%}</h4>
+
 
 </body>
 </html>
