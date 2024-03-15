@@ -2,36 +2,46 @@ from typing import Union
 from fastapi import FastAPI, Request, Form
 from fastapi.templating import Jinja2Templates
 import json
-
+from pydantic import BaseModel
 app = FastAPI()
 templats = Jinja2Templates(directory="templates")
 
 
-""" uvicorn main:app --reload """
+""" uvicorn main:app --reload """ 
 
-@app.get('/')
-def task_list(request: Request):
-    context = {}
-    with open('database.json', 'r', encoding='utf-8') as db:
-        db:dict = json.load(db)
-        context = db
-        print(context)
-    return templats.TemplateResponse(request=request, name='index.html', context=context)
+def database(name_db, mode, data=None):
+    if mode == 'r':
+        with open(name_db, mode, encoding='utf-8') as db:
+            return json.load(db)
+    elif mode == 'w':
+        with open(name_db, mode, encoding='utf-8') as db:
+            return json.dump(data, db)
 
-
-@app.get('/users/')
-def get_user(request:Request):
-    with open('database.json', 'r', encoding='utf-8') as db:
-        db:dict = json.load(db)
-        context = db
-    return templats.TemplateResponse(request=request, name='users.html', context=context)
+@app.get('/index/')
+def get_index(request:Request):
+    data = database('database.json', 'r')
+    return templats.TemplateResponse(request=request, name='index.html', context=data)
 
 @app.get('/create/')
-def create_task(request:Request):
-    return templats.TemplateResponse(request=request, name='create.html')    
+def get_index(request:Request):
+    data = database('database.json', 'r')
+    return templats.TemplateResponse(request=request, name='create.html', context=data)
+
+class Task(BaseModel):
+    title:str
+    description:str
+
 
 
 @app.post('/create/')
-def create_task(request:Request, task:str = Form(...)):
+def get_index(request:Request, task:Task):
     print(task)
-    return templats.TemplateResponse(request=request, name='create.html')   
+    data = database('database.json', 'r')
+
+    
+    new_task = {"title" : task.title, "description": task.description}
+    
+    
+    data['tasks'].append(new_task)
+    print(data)
+    database('database.json', 'w', data)

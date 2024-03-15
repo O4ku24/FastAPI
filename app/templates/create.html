@@ -7,19 +7,29 @@
 </head>
 <body>
     <a href="/">Back</a>
-    <form style="text-align: center;" action="/create/" method="post">
+    <form style="text-align: center;" action="/create/" id="create" method="post">
         <input type="text" name="title" id="input_title">
         <input type="text" name="description" id="input_description">
         <button type="submit" id="button_add">добавить</button>
-    </form>
+    </form> 
     <script>
-        let button_add = document.getElementById('button_add');
+        let create = document.getElementById('create');
+        
+        create.addEventListener('submit', function(event){
+            event.preventDefault();
 
-        button_add.addEventListener('click', function(){
             let input_title = document.getElementById('input_title').value;
             let input_description = document.getElementById('input_description').value;
-            console.log(input_title)
-            console.log(input_description)
+            const data = {'title': input_title, 'description' : input_description}
+
+            fetch('http://127.0.0.1:8000/create/', {
+                method : "POST",
+                headers : {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+
         })
     </script>
 </body>

@@ -16,11 +16,12 @@
     <h1>Список задач</h1>
     <h4>Кол-во задач:{{count_action.task_action}}</h4>
     <h4>Задача: {% for task in tasks %}
-        {{task.title}}
-    {%endfor%}</h4>
-    <h4>Задача: {% for task in tasks %}
-        {{task.description}}
-    {%endfor%}</h4>
+                {{task.title}}
+                {{task.description}}
+            {%endfor%}</h4>
+    
+        
+  
 
 
 </body>
