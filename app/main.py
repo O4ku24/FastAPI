@@ -3,29 +3,53 @@ from fastapi import FastAPI, Request, Form
 from fastapi.templating import Jinja2Templates
 import json
 from pydantic import BaseModel
+import uvicorn
 app = FastAPI()
 templats = Jinja2Templates(directory="templates")
 
+if __name__ == '__main__':
+    print('Start Server')
+    uvicorn.run('main:app', port = 8000, reload=True)
+    print('Server Stop')
 
 """ uvicorn main:app --reload """ 
 
-def database(name_db, mode, data=None):
-    if mode == 'r':
-        with open(name_db, mode, encoding='utf-8') as db:
+
+class DataBase():
+    def __init__(self, name_db) -> None:
+        self.name_db = name_db
+    
+    def name_db(self):
+        return self.name_db
+    
+
+    def read_db(self):
+        with open(self.name_db, 'r', encoding='utf-8') as db:
             return json.load(db)
-    elif mode == 'w':
-        with open(name_db, mode, encoding='utf-8') as db:
-            return json.dump(data, db)
+    
+    def save_db(self, data):
+        with open(self.name_db, 'w', encoding='utf-8') as db:
+            return json.dump(data, db, ensure_ascii=False)
+
+database = DataBase('database.json')
 
 @app.get('/index/')
 def get_index(request:Request):
-    data = database('database.json', 'r')
+    data = database.read_db()
     return templats.TemplateResponse(request=request, name='index.html', context=data)
 
-@app.get('/create/')
+
+@app.get('/list_task/')
 def get_index(request:Request):
-    data = database('database.json', 'r')
-    return templats.TemplateResponse(request=request, name='create.html', context=data)
+    data = database.read_db()
+    return templats.TemplateResponse(request=request, name='list_task.html', context=data)
+
+
+
+@app.get('/add_task/')
+def get_index(request:Request):
+    data = database.read_db()
+    return templats.TemplateResponse(request=request, name='add_task.html', context=data)
 
 class Task(BaseModel):
     title:str
@@ -33,15 +57,11 @@ class Task(BaseModel):
 
 
 
-@app.post('/create/')
-def get_index(request:Request, task:Task):
-    print(task)
-    data = database('database.json', 'r')
-
-    
+@app.post('/add_task/')
+def add_task(request:Request, task:Task):
+    data = database.read_db()
     new_task = {"title" : task.title, "description": task.description}
-    
-    
     data['tasks'].append(new_task)
-    print(data)
-    database('database.json', 'w', data)
+    data['count_action']["task_action"] += 1
+    database.save_db(data)
+    return templats.TemplateResponse(request=request, name='list_task.html', context=data)

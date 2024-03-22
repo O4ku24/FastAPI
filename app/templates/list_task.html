@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{%block body%}
+<h1>Количество задач</h1>
+            <h2>{{count_action.task_action}}</h2>
+<hr>
+<h1>Список задач</h1>
+<hr>
+
+             {% for task in tasks %}
+           <h3>{{task.title}}</h3> 
+            <h4>{{task.description}}</h4>
+            <button class="exelent_task">Выполнена</button>
+            <button class="delete_task">Удалить</button>
+            <hr>
+            <script>
+                let delete_task = document.getElementsByClassName('delete_task');
+                let exelent_task = document.getElementsByClassName('exelent_task');
+                
+                exelent_task.addEventListener('click', function(){
+                    console.log('exe')
+                })
+                delete_task.addEventListener('click', function(){
+                    console.log('del')
+                })
+            </script>
+
+            {% endfor %}
+{%endblock%}  
