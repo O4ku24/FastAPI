@@ -10,18 +10,18 @@
              {% for task in tasks %}
            <h3>{{task.title}}</h3> 
             <h4>{{task.description}}</h4>
-            <button class="exelent_task">Выполнена</button>
+            <button class="completed_task">Выполнена</button>
             <button class="delete_task">Удалить</button>
             <hr>
             <script>
                 let delete_task = document.getElementsByClassName('delete_task');
-                let exelent_task = document.getElementsByClassName('exelent_task');
+                let exelent_task = document.getElementsByClassName('completed_task');
                 
                 exelent_task.addEventListener('click', function(){
-                    console.log('exe')
+                    console.log('completed')
                 })
                 delete_task.addEventListener('click', function(){
-                    console.log('del')
+                    console.log('delete')
                 })
             </script>
 
