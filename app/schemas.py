@@ -15,3 +15,18 @@ class TaskUpdateSchema(BaseModel):
     description:str
     status: bool
 
+class UserAddSchema(BaseModel):
+
+    login: str
+    password: str
+
+class UserCreateSchema(BaseModel):
+
+    login: str
+    password: str
+
+class UserUpdateSchema(BaseModel):
+
+    login: str
+    password: str
+

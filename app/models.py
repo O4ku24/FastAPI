@@ -13,3 +13,13 @@ class TaskModel(Model):
     
     def __repr__(self) -> str:
         return f"Task title='{self.title}'"
+    
+class UserModel(Model):
+    __tablename__ = 'user_table'
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    login: Mapped[str]
+    password: Mapped[str]
+
+
+
