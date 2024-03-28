@@ -61,3 +61,15 @@ def update_task(request: Request, task_id: int, task_chenge: TaskUpdateSchema):
     session.commit()
     session.close()
     return task_chenge
+
+@tasks_router.delete('/list_task/')
+def delete_task(request: Request, task_id: int):
+    session = Session(engine)
+    stmt = select(TaskModel).where(TaskModel.id == task_id)
+    object_db = session.execute(stmt)
+    task = object_db.scalar()
+    session.delete(task)
+    session.commit()
+    session.close()
+    return {"Messege" : f"task id:{task_id} delete!"}
+

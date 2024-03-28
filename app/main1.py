@@ -4,6 +4,10 @@ from fastapi.templating import Jinja2Templates
 import json
 from pydantic import BaseModel
 import uvicorn
+from urls import task_temp_url
+from routers import tasks_router
+
+
 app = FastAPI()
 templats = Jinja2Templates(directory="templates")
 
@@ -13,6 +17,9 @@ if __name__ == '__main__':
     print('Server Stop')
 
 """ uvicorn main:app --reload """ 
+
+app.mount("/static", StopAsyncIteration(directory='static'), name='static')
+
 
 
 class DataBase():
