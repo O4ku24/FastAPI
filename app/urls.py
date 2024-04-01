@@ -19,3 +19,9 @@ def list_task(request: Request):
         request=request,
         name='add_task.html',
     )
+@task_temp_url.get(path='/registration/')
+def registration(request: Request):
+    return template.TemplateResponse(
+        request=request,
+        name='registration.html',
+    )
