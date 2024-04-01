@@ -5,3 +5,9 @@ body{
 .data{
     text-align: left;
 }
+main {
+    min-height: calc(100vh - 70px);
+  }
+footer {
+    height: 50px; background: gray;
+  }
