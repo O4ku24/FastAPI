@@ -3,12 +3,19 @@
 {%block body%}
 <h1>Добавить Задачу</h1>
 <form class="form_task_CSS" id="taskForm" method="post">
-    <label for="title">Название задачи</label>
-    <input type="text" id="title" name="title">
-    <label for="description">Описание задачи</label>
-    <input type="text" id="description" name="description">
-    <button id="btnTaskForm">Добавить задачу</button>
+
+    <div class="mb-3">
+        <label for="exampleFormControlInput1" class="taskForm">Задача</label>
+        <input type="text" class="form-control-task" id="title" name="title">
+    </div>
+
+    <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="taskForm">Описание задачи</label>
+        <textarea class="form-control-task" id="description" name="description"></textarea>
+    </div>
+
 </form>
+
 <script>
     let taskForm = document.getElementById('taskForm');
     taskForm.addEventListener('submit', function(event){

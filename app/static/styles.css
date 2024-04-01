@@ -18,5 +18,14 @@ footer {
   }
 
 .form_task_CSS{
-    text-decoration: dotted;
+  border: 2px solid;
+  border-radius: 15px;
+  padding: 10px;
+  margin: 10px;
+}
+.mb-3{
+  border: 2px solid;
+  border-radius: 15px;
+  padding: 10px;
+  margin: 10px;
 }
