@@ -1,18 +1,19 @@
 {% extends "base.html" %}
 
 {%block body%}
-<h1>Добавить Задачу</h1>
+<h1 class="heading">Добавить Задачу</h1>
 <form class="form_task_CSS" id="taskForm" method="post">
 
     <div class="mb-3">
-        <label for="exampleFormControlInput1" class="taskForm">Задача</label>
-        <input type="text" class="form_control_task_title" id="title" name="title">
+        <label for="exampleFormControlInput1" class="form-label">Задача</label>
+        <input type="email" class="form-control" id="exampleFormControlInput1" >
     </div>
-
     <div class="mb-3">
-        <label for="exampleFormControlTextarea1" class="taskForm">Описание задачи</label>
-        <textarea class="form_control_task_input" id="description" name="description"></textarea>
+        <label for="exampleFormControlTextarea1" class="form-label">Описание</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Опишите зачаду"></textarea>
     </div>
+    <button type="submit" class="btn btn-secondary" id="button_add_task">Добавить</button>
+    
 
 </form>
 

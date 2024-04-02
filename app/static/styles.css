@@ -14,7 +14,8 @@ main {
     min-height: calc(100vh - 70px);
   }
 footer {
-    height: 50px; background: gray;
+    height: 50px; background: rgba(128, 128, 128, 0);
+    text-align: center;
   }
 
 .form_task_CSS{
@@ -23,6 +24,7 @@ footer {
   margin: 10px;
 }
 .mb-3{
+  color: white;
   border: 2px solid;
   border-radius: 15px;
   padding: 10px;
@@ -36,4 +38,7 @@ footer {
 
 .taskForm{
   text-align: center;
+}
+.heading{
+  color: white;
 }
