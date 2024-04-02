@@ -18,8 +18,7 @@ footer {
   }
 
 .form_task_CSS{
-  border: 2px solid;
-  border-radius: 15px;
+
   padding: 10px;
   margin: 10px;
 }
@@ -28,4 +27,13 @@ footer {
   border-radius: 15px;
   padding: 10px;
   margin: 10px;
+  margin-left: 150px;
+  margin-right: 150px;
+}
+.form_control_task_input{
+  padding-top: 250px;
+}
+
+.taskForm{
+  text-align: center;
 }
