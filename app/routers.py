@@ -39,7 +39,7 @@ def get_list_task(request:Request):
     session.close()
     return tasks
 
-@tasks_router.post('/add_task/')
+@tasks_router.post('/create/')
 def add_task(request: Request, task: TaskCreateSchema):
     session = Session(engine)
     stmt = insert(TaskModel).values(title = task.title, description = task.description)

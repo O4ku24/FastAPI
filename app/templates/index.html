@@ -5,5 +5,118 @@
 <h1 class="heading">Главная страница</h1>
 <hr>
 <h4 class="heading">Это Приложение еще в разработке!</h4>
+
+<h1>Количество задач</h1>
+
+<hr>
+<h1>Список задач</h1>
+<hr>
+<ul id="ulTask">
+
+
+</ul>
+
+<form class="form_task_CSS" id="taskForm" method="post">
+
+    <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">Задача</label>
+        <input type="text" class="form-control" id="TaskFormTitle" >
+    </div>
+    <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="form-label">Описание</label>
+        <textarea class="form-control" id="TaskFormDecription" rows="3" placeholder="Опишите зачаду"></textarea>
+    </div>
+    <button style="border: 2px solid;" type="submit" class="btn btn-secondary" id="button_add_task">Добавить</button>
+    
+
+</form>
+
+
+            <script>
+                const  reqgetListTask = 'http://127.0.0.1:8000/api/tasks/list_task/'
+                const  reqPostCreateTask = 'http://127.0.0.1:8000/api/tasks/create/'
+
+                const taskObjact = {
+                    listTask:[],
+                }  
+
+                task = {}
+
+                // делает GET запрос на reqGetListTask гле получаем список задач и присваеваем данные //
+
+                fetch(new Request(reqgetListTask)).then((response) => 
+                response.json().then((data) => {
+                    taskObjact.listTask.push(data)
+                    taskObjact.listTask = data
+
+                    ulTask = document.getElementById('ulTask');
+                    for (let i = 0; taskObjact.listTask.length-1; i++){
+                        el_li = document.createElement('li');
+                        el_id = document.createElement('h2');
+                        el_title = document.createElement('h2');
+                        el_description = document.createElement('h4');
+                        el_status = document.createElement('h2');
+                        console.log(taskObjact.listTask)
+                        el_title = taskObjact.listTask[i].title;
+                        el_description = taskObjact.listTask[i].description;
+                        el_li.append(el_title);
+                        ulTask.append(el_li);
+                    }
+
+
+  
+                }))
+                
+                const taskFormAdd = document.getElementById('button_add_task');
+                taskFormAdd.addEventListener('click', function(event){
+                    event.preventDefault();
+                    let TaskFormTitle = document.getElementById('TaskFormTitle');
+                    let TaskFormDecription = document.getElementById('TaskFormDecription');
+                    data = {'title': TaskFormTitle.value, 'description': TaskFormDecription.value};
+                    fetch(reqPostCreateTask, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    })
+                    TaskFormTitle.value = '';
+                    TaskFormDecription.value = '';
+                    console.log(TaskFormTitle.value, TaskFormDecription.value)
+                    console.log('Task ADD')
+                })
+
+
+                    
+
+
+
+            </script>
+<!--             <script>
+                let delete_task = document.getElementsByClassName('delete_task');
+                let exelent_task = document.getElementsByClassName('completed_task');
+                
+                exelent_task.addEventListener('click', function(){
+                    console.log('completed')
+                })
+                delete_task.addEventListener('click', function(){
+                    console.log('delete')
+                })
+            </script> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <script src="{{ url_for('static', path='script.js') }}"></script>
 {%endblock%} 

@@ -2,18 +2,33 @@
 
 {%block body%}
 <h1>Количество задач</h1>
-            <h2>{{count_action.task_action}}</h2>
+
 <hr>
 <h1>Список задач</h1>
 <hr>
-
-             {% for task in tasks %}
-           <h3>{{task.title}}</h3> 
-            <h4>{{task.description}}</h4>
-            <button class="completed_task">Выполнена</button>
-            <button class="delete_task">Удалить</button>
-            <hr>
+<form id="taskFormCreate">
+    <label for="">num</label>
+    <label for=""></label>
+</form>
             <script>
+                const  reqgetListTask = 'http://127.0.0.1:8000/api/tasks/list_task/'
+                const  reqPostCreateTask = 'http://127.0.0.1:8000/api/tasks/add_task/'
+                const taskObjact = {
+                    listTask:[],
+                }
+
+                fatch(new Request(reqgetListTask)).then(
+                    response => response.json()
+                ).then(
+                    data => taskObjact.listTask.push(data)
+                )
+
+                console.log(taskObjact.listTask)
+
+
+
+            </script>
+<!--             <script>
                 let delete_task = document.getElementsByClassName('delete_task');
                 let exelent_task = document.getElementsByClassName('completed_task');
                 
@@ -23,7 +38,7 @@
                 delete_task.addEventListener('click', function(){
                     console.log('delete')
                 })
-            </script>
+            </script> -->
 
-            {% endfor %}
+            
 {%endblock%}  
