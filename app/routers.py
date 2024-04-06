@@ -62,7 +62,7 @@ def update_task(request: Request, task_id: int, task_chenge: TaskUpdateSchema):
     session.close()
     return task_chenge
 
-@tasks_router.delete('/list_task/')
+@tasks_router.delete('/delete/')
 def delete_task(request: Request, task_id: int):
     session = Session(engine)
     stmt = select(TaskModel).where(TaskModel.id == task_id)

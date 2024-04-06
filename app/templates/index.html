@@ -3,18 +3,20 @@
 
 {%block body%}
 <h1 class="heading">Главная страница</h1>
+
 <hr>
+
 <h4 class="heading">Это Приложение еще в разработке!</h4>
 
 <h1>Количество задач</h1>
-
 <hr>
 <h1>Список задач</h1>
 <hr>
+
+
 <ul id="ulTask">
-
-
 </ul>
+
 
 <form class="form_task_CSS" id="taskForm" method="post">
 
@@ -31,6 +33,7 @@
 
 </form>
 
+<button style="border: 2px solid;" type="submit" class="btn btn-secondary" id="button_list_tasks">показать список задач</button>
 
             <script>
                 const  reqgetListTask = 'http://127.0.0.1:8000/api/tasks/list_task/'
@@ -42,9 +45,12 @@
 
                 task = {}
 
+                let button_list_tasks = document.getElementById('button_list_tasks');
+                button_list_tasks.addEventListener('click', renderTask);
+
                 // делает GET запрос на reqGetListTask гле получаем список задач и присваеваем данные //
 
-                fetch(new Request(reqgetListTask)).then((response) => 
+/*                 fetch(new Request(reqgetListTask)).then((response) => 
                 response.json().then((data) => {
                     taskObjact.listTask.push(data)
                     taskObjact.listTask = data
@@ -65,8 +71,55 @@
 
 
   
-                }))
+                })) */
                 
+                function renderTask(){
+                    
+                    fetch(reqgetListTask).then(response => response.json()).then(tasks => {
+                        const ulTask = document.getElementById('ulTask');
+                        ulTask.innerHTML = ''
+                        for (let i = 0; i < tasks.length; i++){
+                            el_li = document.createElement('li');
+                            el_id = document.createElement('h2');
+                            el_title = document.createElement('h2');
+                            el_description = document.createElement('h4');
+                            el_status = document.createElement('h2');
+                            el_button_del = document.createElement('button');
+                            el_button_upData = document.createElement('button');
+                            /* присваеваем значение из JSON */
+                            el_title.textContent = tasks[i].title;
+                            el_description.textContent = tasks[i].description;
+                            el_id.textContent = tasks[i].id;
+                            el_status.textContent = tasks[i].status;
+                            console.log(tasks[i].title);
+                            el_div = document.createElement('div');
+                            el_div.append(el_title, el_description, el_status, el_button_del);
+                            el_li.append(el_div);
+                            ulTask.append(el_li);
+                            
+                            el_button_del.textContent = 'Удалить';
+                            /* el_button_del.class = 'btn btn-secondary'; */
+                            el_button_del.id = `task_id=${tasks[i].id}`
+                            el_button_del.addEventListener('click', function(event){
+                                event.preventDefault();
+                                url = 'http://127.0.0.1:8000/api/tasks/delete/'+'?'+this.id
+                                console.log(url);
+                                fetch(url, { 
+                                    method: 'DELETE'
+                                })
+                renderTask()
+                renderTask()
+                            
+
+
+
+                            })
+                        }
+                    })
+                }
+
+
+
                 const taskFormAdd = document.getElementById('button_add_task');
                 taskFormAdd.addEventListener('click', function(event){
                     event.preventDefault();
