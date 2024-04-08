@@ -14,22 +14,3 @@ def index(request: Request):
         name='index.html',
     )
 
-""" @task_temp_url.delete(path='/index/')
-def index(request: Request):
-    return template.TemplateResponse(
-        request=request,
-        name='index.html',
-    )
-
-@task_temp_url.get(path='/add_task/')
-def list_task(request: Request):
-    return template.TemplateResponse(
-        request=request,
-        name='add_task.html',
-    )
-@task_temp_url.get(path='/registration/')
-def registration(request: Request):
-    return template.TemplateResponse(
-        request=request,
-        name='registration.html',
-    ) """

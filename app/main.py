@@ -22,7 +22,6 @@ app.mount("/static", StaticFiles(directory='static'), name='static')
 
 
 if __name__ == '__main__':
-    #Model.metadata.create_all(engine)
     TaskModel.metadata.create_all(engine)
 
     print('Start Server')
