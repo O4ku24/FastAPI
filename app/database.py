@@ -7,6 +7,8 @@ engine = create_engine(
     echo=True
 )
 
+
+
 class Model(DeclarativeBase):
     pass
 

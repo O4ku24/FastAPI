@@ -2,6 +2,8 @@
 
 {%block body%}
 <h1 class="heading">Добавить Задачу</h1>
+
+
 <form class="form_task_CSS" id="taskForm" method="post">
 
     <div class="mb-3">
@@ -18,22 +20,23 @@
 </form>
 
 <script>
-    let taskForm = document.getElementById('taskForm');
-    taskForm.addEventListener('submit', function(event){
-        event.preventDefault();
-        let title = document.getElementById('title');
-        let description = document.getElementById('description');
-        const data = {"title": title.value, "description":description.value}
-        console.log(data)
-        
-        fetch('http://127.0.0.1:8000/add_task/', {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
-
-    })
+    const taskFormAdd = document.getElementById('button_add_task');
+                taskFormAdd.addEventListener('click', function(event){
+                    event.preventDefault();
+                    let TaskFormTitle = document.getElementById('TaskFormTitle');
+                    let TaskFormDecription = document.getElementById('TaskFormDecription');
+                    data = {'title': TaskFormTitle.value, 'description': TaskFormDecription.value};
+                    fetch(reqPostCreateTask, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    })
+                    TaskFormTitle.value = '';
+                    TaskFormDecription.value = '';
+                    console.log(TaskFormTitle.value, TaskFormDecription.value)
+                    console.log('Task ADD')
+                })
 </script>
 {%endblock%}  

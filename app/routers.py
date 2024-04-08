@@ -5,32 +5,11 @@ from sqlalchemy.orm import Session
 from sqlalchemy import select, insert
 from database import engine
 
-tasks_router = APIRouter(prefix='/api/tasks')
+router = APIRouter()
 
 
-""" @tasks_router.post(path='/create/') 
-def create_task_point(request:Request, task: TaskCreateSchema):
-    new_task = TaskModel(
-        title = task.title,
-        description = task.description,
-    )
 
-    session = Session(engine)
-    session.add(new_task)
-    session.commit()
-    session.close()
-    return {"task": task}
-
-@tasks_router.get('/list_task/')
-def list_tasks_point(request:Request):
-    session = Session(engine)
-    stmt = select(TaskModel)
-    tasks:list = session.scalars(stmt).all()
-    return tasks
- """
-
-
-@tasks_router.get('/list_task/')
+@router.get('/list_task/')
 def get_list_task(request:Request):
     session = Session(engine)
     stmt = select(TaskModel)
@@ -39,7 +18,7 @@ def get_list_task(request:Request):
     session.close()
     return tasks
 
-@tasks_router.post('/create/')
+@router.post('/create/')
 def add_task(request: Request, task: TaskCreateSchema):
     session = Session(engine)
     stmt = insert(TaskModel).values(title = task.title, description = task.description)
@@ -48,7 +27,7 @@ def add_task(request: Request, task: TaskCreateSchema):
     session.close()
     return task
 
-@tasks_router.put('/list_task/')
+@router.put('/list_task/')
 def update_task(request: Request, task_id: int, task_chenge: TaskUpdateSchema):
     session = Session(engine)
     stmt = select(TaskModel).where(TaskModel.id == task_id)
@@ -62,7 +41,7 @@ def update_task(request: Request, task_id: int, task_chenge: TaskUpdateSchema):
     session.close()
     return task_chenge
 
-@tasks_router.delete('/delete/')
+@router.delete('/delete/')
 def delete_task(request: Request, task_id: int):
     session = Session(engine)
     stmt = select(TaskModel).where(TaskModel.id == task_id)
