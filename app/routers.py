@@ -5,11 +5,20 @@ from sqlalchemy.orm import Session
 from sqlalchemy import select, insert
 from database import engine
 
-router = APIRouter()
+router = APIRouter(prefix='/api/tasks')
 
 
 
 @router.get('/list_task/')
+def get_list_task(request:Request):
+    session = Session(engine)
+    stmt = select(TaskModel)
+    object_db = session.execute(stmt)
+    tasks:list = object_db.scalars().all()
+    session.close()
+    return tasks
+
+@router.get('/create/')
 def get_list_task(request:Request):
     session = Session(engine)
     stmt = select(TaskModel)

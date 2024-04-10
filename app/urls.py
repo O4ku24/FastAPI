@@ -3,7 +3,7 @@ from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 
 
-task_temp_url = APIRouter(tags=['task'])
+task_temp_url = APIRouter(tags=['/api/tasks'])
 template = Jinja2Templates(directory='templates')
 
 
@@ -14,3 +14,9 @@ def index(request: Request):
         name='index.html',
     )
 
+@task_temp_url.post(path='/create/')
+def add_task(request: Request):
+    return template.TemplateResponse(
+        request=request,
+        name='create.html',
+    )
